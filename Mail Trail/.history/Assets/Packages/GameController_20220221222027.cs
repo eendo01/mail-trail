@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
       private void BeginGame()
       {
             gamePlaying = true; 
-            startTime = Time.time + 45;
+            startTime = Time.time + 10;
       }
 
       private void Update()

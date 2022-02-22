@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 {
       public static GameController instance;
 
-      public GameObject boxContainer, hudContainer, gameSuccessPanel, gameOverPanel;
+      public GameObject boxContainer, hudContainer, gameOverPanel;
       public Text boxCounter, timeCounter, countdownText;
       public bool gamePlaying { get; private set; }
       public int countdownTime;
@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
       private void BeginGame()
       {
             gamePlaying = true; 
-            startTime = Time.time + 45;
+            startTime = Time.time + 10;
       }
 
       private void Update()

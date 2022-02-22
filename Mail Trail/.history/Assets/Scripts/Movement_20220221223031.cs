@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(AudioSource))]
+
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
     private Vector2 direction;
-    private AudioSource pickedupSound;
+    private AudioClip pickedupSound;
 
     //private float curSpriteDirection;
     [SerializeField] private float speed;
@@ -20,7 +20,7 @@ public class Movement : MonoBehaviour
         //curSpriteDirection = 1; // direction set to right
         //spriteRenderer.sprite = spriteArray[1];
 
-        pickedupSound = GetComponent<AudioSource>();
+        pickedupSound = Resources.Load<AudioClip>("Audio/Plop");
     }
 
     // Update is called once per frame
@@ -51,10 +51,9 @@ public class Movement : MonoBehaviour
     {
         if(collision.CompareTag("Collectable"))
         {    
-            pickedupSound.Play();
             GameController.instance.CollectBox();
             Destroy(collision.gameObject);
         }
-        
+        pickedupSound.Play();
     }
 }

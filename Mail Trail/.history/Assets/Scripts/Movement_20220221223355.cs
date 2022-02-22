@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(AudioSource))]
+
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
@@ -51,10 +51,9 @@ public class Movement : MonoBehaviour
     {
         if(collision.CompareTag("Collectable"))
         {    
-            pickedupSound.Play();
             GameController.instance.CollectBox();
             Destroy(collision.gameObject);
         }
-        
+        pickedupSound.Play();
     }
 }

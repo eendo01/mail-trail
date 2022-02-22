@@ -8,8 +8,8 @@ public class GameController : MonoBehaviour
 {
       public static GameController instance;
 
-      public GameObject boxContainer, hudContainer, gameSuccessPanel, gameOverPanel;
-      public Text boxCounter, timeCounter, countdownText;
+      public GameObject boxContainer, hudContainer, gameOverPanel;
+      public Text boxCounter, timeCounter countdownText;
       public bool gamePlaying { get; private set; }
       public int countdownTime;
 
@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
       private void BeginGame()
       {
             gamePlaying = true; 
-            startTime = Time.time + 45;
+            startTime = Time.time + 60;
       }
 
       private void Update()
@@ -48,11 +48,6 @@ public class GameController : MonoBehaviour
 
                   string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
                   timeCounter.text = timePlayingStr;
-
-                  if (timePlaying.ToString("mm':'ss'.'ff") == "00:00.00")
-                  {
-                        EndGameFailure();
-                  }
             }
       }
       // Increases the score count each time a box is collected
@@ -65,29 +60,15 @@ public class GameController : MonoBehaviour
 
             if (numCollectedBoxes >= numTotalBoxes)
             {
-                  EndGameSuccess();
+                  EndGame();
             }
       }
 
 
-      private void EndGameSuccess()
-      {
-            gamePlaying = false;
-            Invoke("ShowGameSuccessScreen", 1.25f); //calls game over screen after 1.25 seconds 
-      }
-
-      private void EndGameFailure()
+      private void EndGame()
       {
             gamePlaying = false;
             Invoke("ShowGameOverScreen", 1.25f); //calls game over screen after 1.25 seconds 
-      }
-
-      private void ShowGameSuccessScreen()
-      {
-            gameSuccessPanel.SetActive(true);
-            hudContainer.SetActive(false);
-            string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
-            gameSuccessPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
       }
 
       private void ShowGameOverScreen()
@@ -102,17 +83,17 @@ public class GameController : MonoBehaviour
       {
             while(countdownTime > 0) 
             {
-                  countdownText.text = countdownTime.ToString();
+                  countdownDisplay.text = countdownTime.ToString();
                   yield return new WaitForSeconds(1f);
                   countdownTime--;
             }
 
-            countdownText.text = "GO!";
+            countdownDisplay.text = "GO!";
 
-            GameController.instance.BeginGame();
+            // GameController.instance.BeginGame();
 
             yield return new WaitForSeconds(1f);
-            countdownText.gameObject.SetActive(false); 
+            countdownDisplay.gameObject.SetActive(false); 
       }
 
 

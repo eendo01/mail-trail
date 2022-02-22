@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Animator))]
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rigidBody;

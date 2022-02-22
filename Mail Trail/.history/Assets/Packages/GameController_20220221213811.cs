@@ -8,10 +8,9 @@ public class GameController : MonoBehaviour
 {
       public static GameController instance;
 
-      public GameObject boxContainer, hudContainer, gameSuccessPanel, gameOverPanel;
-      public Text boxCounter, timeCounter, countdownText;
+      public GameObject boxContainer, hudContainer, gameOverPanel;
+      public Text boxCounter, timeCounter;
       public bool gamePlaying { get; private set; }
-      public int countdownTime;
 
       private int numTotalBoxes, numCollectedBoxes;
       private float startTime, elapsedTime;
@@ -29,14 +28,12 @@ public class GameController : MonoBehaviour
            boxCounter.text = "Packages Collected: 0 / " + numTotalBoxes;
 
            gamePlaying = false; 
-
-           StartCoroutine(CountdownToStart());
       }
 
-      private void BeginGame()
+      public void BeginGame()
       {
             gamePlaying = true; 
-            startTime = Time.time + 45;
+            startTime = Time.time;
       }
 
       private void Update()
@@ -48,11 +45,6 @@ public class GameController : MonoBehaviour
 
                   string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
                   timeCounter.text = timePlayingStr;
-
-                  if (timePlaying.ToString("mm':'ss'.'ff") == "00:00.00")
-                  {
-                        EndGameFailure();
-                  }
             }
       }
       // Increases the score count each time a box is collected
@@ -65,57 +57,22 @@ public class GameController : MonoBehaviour
 
             if (numCollectedBoxes >= numTotalBoxes)
             {
-                  EndGameSuccess();
+                  EndGame();
             }
       }
 
 
-      private void EndGameSuccess()
-      {
-            gamePlaying = false;
-            Invoke("ShowGameSuccessScreen", 1.25f); //calls game over screen after 1.25 seconds 
-      }
-
-      private void EndGameFailure()
+      private void EndGame()
       {
             gamePlaying = false;
             Invoke("ShowGameOverScreen", 1.25f); //calls game over screen after 1.25 seconds 
-      }
-
-      private void ShowGameSuccessScreen()
-      {
-            gameSuccessPanel.SetActive(true);
-            hudContainer.SetActive(false);
-            string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
-            gameSuccessPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
       }
 
       private void ShowGameOverScreen()
       {
             gameOverPanel.SetActive(true);
             hudContainer.SetActive(false);
-            string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
-            gameOverPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
       }
-
-      IEnumerator CountdownToStart()
-      {
-            while(countdownTime > 0) 
-            {
-                  countdownText.text = countdownTime.ToString();
-                  yield return new WaitForSeconds(1f);
-                  countdownTime--;
-            }
-
-            countdownText.text = "GO!";
-
-            GameController.instance.BeginGame();
-
-            yield return new WaitForSeconds(1f);
-            countdownText.gameObject.SetActive(false); 
-      }
-
-
       // public void AddScore (int newScoreValue) {
       //       score += newScoreValue;
       //       UpdateScore ();

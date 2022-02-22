@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(AudioSource))]
+
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
@@ -19,8 +19,6 @@ public class Movement : MonoBehaviour
         rigidBody = GetComponentInChildren<Rigidbody2D>();
         //curSpriteDirection = 1; // direction set to right
         //spriteRenderer.sprite = spriteArray[1];
-
-        pickedupSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -51,10 +49,9 @@ public class Movement : MonoBehaviour
     {
         if(collision.CompareTag("Collectable"))
         {    
-            pickedupSound.Play();
             GameController.instance.CollectBox();
             Destroy(collision.gameObject);
         }
-        
+        pickedupSound.Play();
     }
 }
