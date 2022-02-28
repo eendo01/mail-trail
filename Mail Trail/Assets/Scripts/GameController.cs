@@ -3,13 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
       public static GameController instance;
-
+      
+      public static bool GameisPaused = false;
+      public GameObject pauseMenuUI;
+      
       public GameObject boxContainer, hudContainer, gameSuccessPanel, gameOverPanel;
-      public Text boxCounter, timeCounter, countdownText;
+      public Text boxCounter, timeCounter, countdownText, PauseMenuText;
       public bool gamePlaying { get; private set; }
       public int countdownTime;
 
@@ -29,6 +33,7 @@ public class GameController : MonoBehaviour
            boxCounter.text = "Packages Collected: 0 / " + numTotalBoxes;
 
            gamePlaying = false; 
+           pauseMenuUI.SetActive(false);
 
            StartCoroutine(CountdownToStart());
       }
@@ -53,6 +58,14 @@ public class GameController : MonoBehaviour
                   {
                         EndGameFailure();
                   }
+            }
+            if (Input.GetKeyDown(KeyCode.Escape)){
+                    if (GameisPaused){
+                            Resume();
+                    }
+                    else{
+                            Pause();
+                    }
             }
       }
       // Increases the score count each time a box is collected
@@ -96,6 +109,32 @@ public class GameController : MonoBehaviour
             hudContainer.SetActive(false);
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameOverPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
+      }
+      
+      void Pause(){
+              pauseMenuUI.SetActive(true);
+              Time.timeScale = 0f;
+              GameisPaused = true;
+              //PauseMenuText.text = "PAUSED";
+      }
+      
+      public void Resume(){
+              pauseMenuUI.SetActive(false);
+              Time.timeScale = 1f;
+              GameisPaused = false;
+      }
+      
+      public void RestartGame(){
+              Time.timeScale = 1f;
+              SceneManager.LoadScene("WorldMap");
+      }
+
+      public void QuitGame(){
+              #if UNITY_EDITOR
+              UnityEditor.EditorApplication.isPlaying = false;
+              #else
+              Application.Quit();
+              #endif
       }
 
       IEnumerator CountdownToStart()
