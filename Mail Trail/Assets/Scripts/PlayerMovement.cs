@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 direction;
     public bool isActive = true;
     private AudioSource pickedupSound;
-
+    public bool popup = true;
     [SerializeField] public float speed;
 
     // Start is called before the first frame update
@@ -72,6 +72,9 @@ public class PlayerMovement : MonoBehaviour
             pickedupSound.Play();
             GameController.instance.CollectBox();
             Destroy(collision.gameObject);
+        }
+        if(collision.tag == "water"){
+            popup = true;
         }
 
     }
