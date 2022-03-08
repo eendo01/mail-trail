@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
       private void BeginGame()
       {
             gamePlaying = true; 
-            startTime = Time.time + 60;
+            startTime = Time.time + 5;
             GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = true;
       }
 

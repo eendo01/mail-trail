@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
       // public Animator animator;
       // public Text popUPText;
       
-      public GameObject boxContainer, hudContainer, gameSuccessPanel, gameOverPanel;
+      public GameObject boxContainer, hudContainer, gameSuccessPanel, gameOverPanel, gameStartPanel;
       public Text boxCounter, timeCounter, countdownText, PauseMenuText;
       public bool gamePlaying { get; private set; }
       public int countdownTime;
@@ -38,16 +38,13 @@ public class GameController : MonoBehaviour
            gamePlaying = false; 
            pauseMenuUI.SetActive(false);
 
-           GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-
            StartCoroutine(CountdownToStart());
       }
 
       private void BeginGame()
       {
             gamePlaying = true; 
-            startTime = Time.time + 60;
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = true;
+            startTime = Time.time + 45;
       }
 
       private void Update()
@@ -107,9 +104,6 @@ public class GameController : MonoBehaviour
             hudContainer.SetActive(false);
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameSuccessPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
-
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-            Invoke("RestartGame", 5f);
       }
 
       private void ShowGameOverScreen()
@@ -118,10 +112,12 @@ public class GameController : MonoBehaviour
             hudContainer.SetActive(false);
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameOverPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
+      }
 
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-            Invoke("RestartGame", 5f);
-            
+      private void ShowGameStartScreen()
+      {
+            gameStartPanel.SetActive(true);
+            hudContainer.SetActive(false);
       }
       
       void Pause(){

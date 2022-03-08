@@ -107,9 +107,6 @@ public class GameController : MonoBehaviour
             hudContainer.SetActive(false);
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameSuccessPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
-
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-            Invoke("RestartGame", 5f);
       }
 
       private void ShowGameOverScreen()
@@ -118,10 +115,6 @@ public class GameController : MonoBehaviour
             hudContainer.SetActive(false);
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameOverPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
-
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-            Invoke("RestartGame", 5f);
-            
       }
       
       void Pause(){

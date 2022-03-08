@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
       private void BeginGame()
       {
             gamePlaying = true; 
-            startTime = Time.time + 60;
+            startTime = Time.time + 5;
             GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = true;
       }
 
@@ -107,9 +107,6 @@ public class GameController : MonoBehaviour
             hudContainer.SetActive(false);
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameSuccessPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
-
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-            Invoke("RestartGame", 5f);
       }
 
       private void ShowGameOverScreen()
@@ -119,9 +116,9 @@ public class GameController : MonoBehaviour
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameOverPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
 
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-            Invoke("RestartGame", 5f);
-            
+
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("WorldMap");
       }
       
       void Pause(){

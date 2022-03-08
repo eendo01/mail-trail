@@ -35,10 +35,9 @@ public class GameController : MonoBehaviour
            numTotalBoxes = boxContainer.transform.childCount;
            numCollectedBoxes = 0;
            boxCounter.text = "Packages Collected: 0 / " + numTotalBoxes;
+            PlayerMovement.isActive = false;
            gamePlaying = false; 
            pauseMenuUI.SetActive(false);
-
-           GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
 
            StartCoroutine(CountdownToStart());
       }
@@ -46,8 +45,8 @@ public class GameController : MonoBehaviour
       private void BeginGame()
       {
             gamePlaying = true; 
-            startTime = Time.time + 60;
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = true;
+            PlayerMovement.isActive = true;
+            startTime = Time.time + 45;
       }
 
       private void Update()
@@ -107,9 +106,6 @@ public class GameController : MonoBehaviour
             hudContainer.SetActive(false);
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameSuccessPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
-
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-            Invoke("RestartGame", 5f);
       }
 
       private void ShowGameOverScreen()
@@ -118,10 +114,6 @@ public class GameController : MonoBehaviour
             hudContainer.SetActive(false);
             string timePlayingStr = "Time Left: " + timePlaying.ToString("mm':'ss'.'ff");
             gameOverPanel.transform.Find("FinalTimeText").GetComponent<Text>().text = timePlayingStr;
-
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().enabled = false;
-            Invoke("RestartGame", 5f);
-            
       }
       
       void Pause(){
@@ -166,7 +158,6 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(1f);
             countdownText.gameObject.SetActive(false); 
       }
-
       // POPUP code
       // public void PopUp(string Text)
       // {
