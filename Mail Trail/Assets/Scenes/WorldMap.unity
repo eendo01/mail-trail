@@ -74165,7 +74165,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Please help me on my route today. \nUse the keybord arraws to move me
+  m_Text: "Please help me on my route today. \nUse the keybord arrows to move me
     around this neighborhood collecting as many packages as possible."
 --- !u!222 &1416102862
 CanvasRenderer:
