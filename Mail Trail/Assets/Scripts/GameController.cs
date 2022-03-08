@@ -12,6 +12,10 @@ public class GameController : MonoBehaviour
       public static bool GameisPaused = false;
       public GameObject pauseMenuUI;
       
+      // public GameObject popUpBox;
+      // public Animator animator;
+      // public Text popUPText;
+      
       public GameObject boxContainer, hudContainer, gameSuccessPanel, gameOverPanel;
       public Text boxCounter, timeCounter, countdownText, PauseMenuText;
       public bool gamePlaying { get; private set; }
@@ -153,8 +157,14 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(1f);
             countdownText.gameObject.SetActive(false); 
       }
-
-
+      // POPUP code
+      // public void PopUp(string Text)
+      // {
+      //     popUpBox.SetActive(true);
+      //     popUpText.text = text;
+      //     animator.SetTrigger("pop");
+      // }
+      
       // public void AddScore (int newScoreValue) {
       //       score += newScoreValue;
       //       UpdateScore ();
